@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<!-- home.html -->
+<body>
+{% load static %}
+{% for post in post_list %}
+    <div>
+	<img src="{% static "head.jpg" %}" alt={{ post.num }} style="width:50%">
+    {{ post.title }}
+    {{ post.created_at }}
+    {{ post.photo }}
+    {{ post.content }}
+    </div>
+{% endfor %}
+</body>
+</html>
