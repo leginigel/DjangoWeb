@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/w3.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<title>SW Training</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+.zh {font-family:Microsoft JhengHei;}
+body {
+    font-family: Arial;
+    padding: 10px;
+    {% block cssBody%}
+	background: #f1f1f1;
+	{% endblock %}
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    text-align: center;
+	{% block cssHeader%}
+    background: white;
+	{% endblock %}
+}
+
+.header h1 {
+    font-size: 50px;
+}
+
+{% block cssNav%}
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+{% endblock %}
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+    float: left;
+    width: 75%;
+	{% block cssLeft%}
+	background-color: #f1f1f1;
+	{% endblock %}
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 25%;
+	{% block cssRight%}
+    background-color: #f1f1f1;
+	{% endblock %}
+    padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+	{% block cssCard%}
+    background-color: white;
+	{% endblock %}
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+	{% block cssFooter%}
+    background: #ddd;
+	{% endblock %}
+    margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+</style>
+<style>
+
+dl a {
+	text-decoration: none;
+}
+
+a.subject:link {
+	{% block cssSub%}
+    color: black;
+	{% endblock %}
+    background-color: transparent;
+    text-decoration: none;
+}
+a.subject:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a.subject:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+div.wiki{
+	display: none;
+	{% block cssWi%}
+    background-color: #616161;
+	color: white;
+	{% endblock %}
+    padding: 20px;
+}
+
+/* Arrow holder */
+.arrowed {
+	position: relative;
+	height: 30px; width: 30px;
+	margin: 0 5px 5px 0;
+	//border: 1px solid rgba(0,0,0,0.25);
+}
+
+/* Just centering the examples */
+.arrowed div {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	margin: auto;
+}
+
+/* -- ARROW 1      -- */
+
+.arrow-1 {
+	height: 15px; width: 15px;
+	border: 1px solid tomato;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+
+.center {
+    text-align: center;
+}
+.pagination a.active {
+    background-color: #aaa;
+    color: white;
+    border-radius: 5px;
+}
+.pagination a {
+	font-size: 16px;
+	border-radius: 5px;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.pagination {
+    display: inline-block;
+	margin: auto;
+	transition: background-color .3s;
+}
+.flip {
+  transform: rotate(-180deg);
+}
+</style>
+<style>
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="{% url 'ts:home' %}">HOME</a>
+  <a href="#">SW1</a>
+  <a href="#">SW2</a>
+  <a href="#">SQA</a>
+  <a href="#">Contact</a>
+</div>
+
+<div id="main">
+<div class="header">
+  <h1>{% block team %}SW 1 Team {% endblock %}Training</h1>
+  <p>{% block slogan %}Learn Better, Better Is the Enemy of Best.{% endblock %}</p>
+</div>
+
+<div class="topnav">
+  <a style="cursor:pointer" onclick="openNav()">&#9776;</a>
+  <a href="{% url 'ts:training' %}">SW1</a>
+  <a href="{% url 'ts:android' %}">Android</a>
+  <a href="{% url 'ts:tv' %}">TV</a>
+  <a href="{% url 'ts:other' %}">Other</a>
+  <a href="#" style="float:right">Link</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+  
+	<div class="center">
+	{% block pagination_head %}
+	<div id="pagi" class="pagination">
+	
+        {% if data.has_previous %}
+			{% if data.number > 1 %}
+			<a href="?page=1#pagi">&laquo;first</a>
+			{% endif %}
+			<a href="?page={{ data.previous_page_number }}#pagi">&laquo;</a>
+		{% else %}
+			<a style="color:#ddd;">&laquo;</a>
+        {% endif %}
+
+		{% with ''|center:data.paginator.num_pages as range %}
+		{% for _ in range %}
+			<a {% if data.number == forloop.counter %} class="active" {% endif %}
+			href="?page={{ forloop.counter }}#pagi">{{ forloop.counter }}</a>
+		{% endfor %}
+		{% endwith %}
+        {# <span class="current"> Page {{ data.number }} of {{ data.paginator.num_pages }}.</span> #}
+
+        {% if data.has_next %}
+			<a href="?page={{ data.next_page_number }}#pagi">&raquo;</a>
+			{% if data.number < data.paginator.num_pages %}
+			<a href="?page={{ data.paginator.num_pages }}#pagi">last&raquo;</a>
+			{% endif %}
+		{% else %}
+            <a style="color:#ddd;">&raquo;</a>
+        {% endif %}
+    
+	</div>
+	{% endblock pagination_head %}
+	</div>
+	
+	{% for value in data %}
+    {% block card %}<div class="card train w3-border w3-hover-shadow w3-hover-border-red" >{% endblock card %}<!-- onmouseover="myOverFunction(this)" onmouseout="myOutFunction(this)" --> 
+      <h3><a class='subject w3-hover-text-blue-grey zh' href='http://10.61.22.16:3000/redmine/issues/{{ value.1.rid }}'
+			title='Goto Redmine' target="_blank">
+	  {{ value.1.subject }}</a></h3>
+	  <div>
+	  <div style="float: left;"><p>
+	  {% if value.1.owner != None %}
+	  {{ value.1.owner }},
+	  {% endif %}
+	  {{ value.1.time }} updated.
+	  </p></div>
+	  {% if value.1.description != '' %}
+	  <div class="arrowed" style="float: right;">
+			<div class="arrow-1"></div>
+	  </div>  {% endif %}
+	  <div class="clear" style="clear:both;"></div>
+	  
+	  </div>
+	  {# Trainning Crawler Data #} 
+	  {% autoescape off %}
+      {{ value.1.description }}
+	  {% endautoescape %}
+    </div>		
+	{% endfor %}
+
+	{% comment %}
+    <div class="card">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Sep 2, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+	{% endcomment %}
+	
+	<div class="center">
+	{% block pagination_tail %}
+	<div class="pagination">
+		
+        {% if data.has_previous %}
+			{% if data.number > 1 %}
+			<a href="?page=1#pagi">&laquo;first</a>
+			{% endif %}
+			<a href="?page={{ data.previous_page_number }}#pagi">&laquo;</a>
+		{% else %}
+			<a style="color:#ddd;">&laquo;</a>
+        {% endif %}
+
+		{% with ''|center:data.paginator.num_pages as range %}
+		{% for _ in range %}
+			<a {% if data.number == forloop.counter %} class="active" {% endif %}
+			href="?page={{ forloop.counter }}#pagi">{{ forloop.counter }}</a>
+		{% endfor %}
+		{% endwith %}
+        {# <span class="current"> Page {{ data.number }} of {{ data.paginator.num_pages }}.</span> #}
+
+        {% if data.has_next %}
+			<a href="?page={{ data.next_page_number }}#pagi">&raquo;</a>
+			{% if data.number < data.paginator.num_pages %}
+			<a href="?page={{ data.paginator.num_pages }}#pagi">last&raquo;</a>
+			{% endif %}
+		{% else %}
+            <a style="color:#ddd;">&raquo;</a>
+        {% endif %}
+    
+	</div>
+	{% endblock pagination_tail %}
+	</div>
+	
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>About Us</h2>
+      <div class="fakeimg" style="height:100px;">Otaku</div>
+      <p>Sitting on the chair, waiting for the care.</p>
+    </div>
+    <div class="card">
+      <h3>Recent Post</h3>
+	  {% for i in top %}
+	  {% if forloop.counter0 %}
+	  <dl class=" w3-border-top">
+	  {% else %}
+	  <dl>
+	  {% endif %}
+		<dt>
+		<a class="zh w3-hover-text-blue-grey" href="http://10.61.22.16:3000/redmine/issues/{{ i.rid }}">
+		{{ i.subject }}</a>
+		</dt>
+	  </dl>
+	  {% endfor %}
+	  
+	  <h3>Latest Issue</h3>
+	  <h4 class=" w3-border-bottom w3-hover-border-red">SW1T</h4>
+	  <a class="zh w3-hover-text-blue-grey" href="http://10.61.22.16:3000/redmine/issues/{{ recent.0.rid }}" style="text-decoration:none;">
+	  {{ recent.0.subject }}
+	  </a>
+	  <h4 class=" w3-border-bottom w3-hover-border-red">Android</h4>
+	  <a class="zh w3-hover-text-blue-grey" href="http://10.61.22.16:3000/redmine/issues/{{ recent.1.rid }}" style="text-decoration:none;">
+	  {{ recent.1.subject }}
+	  </a>
+	  <h4 class=" w3-border-bottom w3-hover-border-red">TV</h4>
+	  <a class="zh w3-hover-text-blue-grey" href="http://10.61.22.16:3000/redmine/issues/{{ recent.2.rid }}" style="text-decoration:none;">
+	  {{ recent.2.subject }}
+	  </a>
+	  <h4 class=" w3-border-bottom w3-hover-border-red">Other</h4>
+	  <a class="zh w3-hover-text-blue-grey" href="http://10.61.22.16:3000/redmine/issues/{{ recent.3.rid }}" style="text-decoration:none;">
+	  {{ recent.3.subject }}
+	  </a>
+      <!-- <div class="fakeimg"><p>Sharp</p></div>
+      <div class="fakeimg"><p>UMC</p></div>
+      <div class="fakeimg"><p>Android</p></div> -->
+    </div>
+    <div class="card">
+      <h3>Quotations from Guo</h3>
+      <p>I don't know any.</p>
+    </div>
+  </div>
+  
+</div>
+
+<div class="footer">
+  <h2></h2>
+</div>
+</div>
+<script>//jQuery
+//show description
+$(document).ready(function(){
+	$(".train").click(function(){
+		$(this).children("div.wiki").slideToggle("fast");
+	});
+	$(".train").click(
+	function(){
+		//$(this).find("div.arrowed").css("transform", "rotate(180deg)");
+		//$(this).find("div.arrowed").css("-webkit-transform", "rotate(180deg)");
+		$(this).find("div.arrowed").toggleClass('flip');
+	});
+});
+</script>
+<script>
+function myOverFunction(x) {
+    var t=x.getElementsByClassName("wiki")[0].style.display = "block";
+	console.log(t);
+}
+function myOutFunction(x) {
+    var t=x.getElementsByClassName("wiki")[0].style.display = "none";
+	console.log(t);
+}
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+	document.getElementById("main").style.marginLeft = "250px";
+    //document.body.style.opacity = "0.8";  
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+	document.getElementById("main").style.marginLeft = "0";
+    //document.body.style.backgroundColor = "white";
+}
+</script>
+
+</body>
+</html>

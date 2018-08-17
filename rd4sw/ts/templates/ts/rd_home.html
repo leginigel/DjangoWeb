@@ -4,13 +4,18 @@
 <meta charset="UTF-8">
 {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% static '/css/w3.css' %}">
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/w3.css' %}">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
-.mySlides {display:none}
+.mySlides {
+	display:none;
+	max-height:300px;
+	overflow:hidden;
+}
 .w3-tag, .fa {cursor:pointer}
 .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
 .zh {font-family:Microsoft JhengHei;}
@@ -57,6 +62,23 @@ width: 33.33%;
 </style>
 <body>
 
+<script>//defaultOpen
+/* Get the element with id="defaultOpen" and click on it */
+//document.getElementById("defaultOpen").click();
+</script>
+
+<script>//jQuery
+//hover how we work
+$(document).ready(function(){
+	$(".hww").hover(function(){
+		$(this).children("div").slideToggle("fast");
+	},
+	function(){
+		$(this).children("div").slideToggle("fast");
+	});
+});
+</script>
+
 <script>
 function openTeam(evt, teamName) {
     // Declare all variables
@@ -90,7 +112,7 @@ function openTeam(evt, teamName) {
 
 <!-- Links (sit on top) -->
 <div class="w3-top">
-  <div class="w3-row w3-large w3-light-grey">
+  <div class="w3-row w3-large w3-blue-grey">
     <div class="w3-col s3">
       <a href="#" class="w3-button w3-block">Home</a>
     </div>
@@ -117,19 +139,19 @@ function openTeam(evt, teamName) {
   <!-- Slideshow -->
   <div class="w3-container">
     <div class="w3-display-container mySlides">
-      <img class="w3-grayscale" src="{% static 'img/29.jpg' %}" style="width:100%">
+      <img class="w3-grayscale" src="{% static 'ts/img/29.jpg' %}" style="width:100%;">
       <div class="w3-display-topleft w3-container w3-padding-32">
         <span class="w3-white w3-padding-large w3-animate-bottom">NK Office</span>
       </div>
     </div>
     <div class="w3-display-container mySlides">
-      <img class="w3-grayscale" src="{% static 'img/43.jpg' %}" style="width:100%">
+      <img class="w3-grayscale" src="{% static 'ts/img/43.jpg' %}" style="width:100%">
       <div class="w3-display-middle w3-container w3-padding-32">
         <span class="w3-white w3-padding-large w3-animate-bottom">HO HO HO</span>
       </div>
     </div>
     <div class="w3-display-container mySlides">
-      <img class="w3-grayscale-max" src="{% static 'img/30.jpg' %}" style="width:100%">
+      <img class="w3-grayscale-max" src="{% static 'ts/img/30.jpg' %}" style="width:100%">
       <div class="w3-display-topright w3-container w3-padding-32">
         <span class="w3-white w3-padding-large w3-animate-bottom">NK  LAB</span>
       </div>
@@ -155,22 +177,22 @@ function openTeam(evt, teamName) {
     </div>
     <div class="w3-col l3 m6 w3-light-grey w3-container w3-padding-16">
       <h3>Innovation</h3>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      <p>Every once in a while, a new technology, an old problem, and a big idea turn into an innovation.</p>
     </div>
 
     <div class="w3-col l3 m6 w3-grey w3-container w3-padding-16">
       <h3>Design</h3>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      <p>Design is a plan for arranging elements in such a way as best to accomplish a particular purpose.</p>
     </div>
 
     <div class="w3-col l3 m6 w3-dark-grey w3-container w3-padding-16">
       <h3>Passion</h3>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      <p>Follow your passion, be prepared to work hard and sacrifice, above all, dont limit your dreams.</p>
     </div>
 
     <div class="w3-col l3 m6 w3-black w3-container w3-padding-16">
       <h3>Responsive</h3>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      <p>An interface is humane if it is responsive to human needs and considerate of human frailties.</p>
     </div>
   </div>
 
@@ -181,68 +203,65 @@ function openTeam(evt, teamName) {
     </div>
 
     <div class="w3-third w3-margin-bottom">
-      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <ul class="hww w3-ul w3-border w3-center w3-hover-shadow">
         <li class="w3-black w3-xlarge w3-padding-32">
 			Administration <br>
 			<span class="w3-opacity-min zh" >行政</span>
 		</li>
-        <li class="w3-padding-16"><b>SW</b> One</li>
-        <li class="w3-padding-16"><b>SW</b> Two</li>
+		<div style="display:none;">
+        <li class="w3-padding-16"><b>SW Team</b> One</li>
+        <li class="w3-padding-16"><b>SW Team</b> Two</li>
         <li class="w3-padding-16"><b>S</b> QA</li>
         <li class="w3-padding-16"><b>RD4</b> Support</li>
-        <li class="w3-padding-16">
-          <h2 class="w3-wide">$ 10</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
+        
         <li class="w3-light-grey w3-padding-24">
-		  <a href="http://10.61.22.16:3000/redmine/projects/2017-m97ds">
+		  <a href="http://10.61.22.16:3000/redmine/projects/2017-m97ds" title='Goto Redmine' target="_blank">
 			<button class="w3-button w3-green w3-padding-large">More</button>
 		  </a>
         </li>
+		</div>
       </ul>
     </div>
 
     <div class="w3-third w3-margin-bottom">
-      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <ul class="hww w3-ul w3-border w3-center w3-hover-shadow">
         <li class="w3-dark-grey w3-xlarge w3-padding-32">
 			Training <br>
 			<span class="w3-opacity-min zh" >訓練</span>
 		</li>
-        <li class="w3-padding-16"><b>SW</b> One</li>
-        <li class="w3-padding-16"><b>SW</b> Two</li>
-        <li class="w3-padding-16"><b>S</b> QA</li>
+		<div style="display:none;">
+        <li class="w3-padding-16" onclick="window.open('{% url 'ts:training' %}', '_blank');" style="cursor:pointer;"><b>SW</b> One</li>
+        <li class="w3-padding-16"><b>SW Team</b> Two</li>
+        <li class="w3-padding-16"><b>S Team</b> QA</li>
         <li class="w3-padding-16"><b>RD4</b> Training</li>
-        <li class="w3-padding-16">
-          <h2 class="w3-wide">$ 25</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
+        
         <li class="w3-light-grey w3-padding-24">
-		  <a href="http://10.61.22.16:3000/redmine/projects/2017-m97dw">
+		  <a href="http://10.61.22.16:3000/redmine/projects/2017-m97dw" title='Goto Redmine' target="_blank">
 			<button class="w3-button w3-green w3-padding-large" >More</button>
 		  </a>
         </li>
+		</div>
       </ul>
     </div>
 
     <div class="w3-third w3-margin-bottom">
-      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <ul class="hww w3-ul w3-border w3-center w3-hover-shadow">
         <li class="w3-black w3-xlarge w3-padding-32">
 			Project <br>
 			<span class="w3-opacity-min zh" >專案</span>
 		</li>
+		<div style="display:none;">
         <li class="w3-padding-16"><b>SONY</b> Gaudi</li>
         <li class="w3-padding-16"><b>Sharp</b> HK</li>
         <li class="w3-padding-16"><b>SONY</b> Raja</li>
-		<li class="w3-padding-16"><b>UMC</b> EU</li>
-        <li class="w3-padding-16">
-          <h2 class="w3-wide">$ 50</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
+		<li class="w3-padding-16"><b>Sharp</b> UMC</li>
+        
         <li class="w3-light-grey w3-padding-24">
-		  <a href="http://10.61.22.16:3000/redmine/projects/fy15-india22-38">
+		  <a href="http://10.61.22.16:3000/redmine/projects/fy15-india22-38" title='Goto Redmine' target="_blank">
 			<button class="w3-button w3-green w3-padding-large">More</button>
 		  </a>
         </li>
+		</div>
       </ul>
     </div>
   </div>
@@ -275,12 +294,32 @@ function openTeam(evt, teamName) {
 	{% endfor %}
   </div>
 
+  <div class="w3-row-padding" id="contact">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Where We Are</span>
+    </div>
+    <div class="w3-cell-row ">
+	  <div class="w3-container w3-black w3-cell" style="width:25%"></div>
+	  <div class="w3-container w3-light-grey w3-cell " style="width:25%">
+		<h4 class="w3-center">NK</h4>
+		<p>Jay 1622<br>Jack 1659<br>Sammi 1616<br>Quantum 1681<br>Ian 1679<br>Rex 1665<br>Jim 1663
+		<br>Seamas 1634<br>Nigel 1661<br>Jacob 1670</p>
+	  </div>
+	  <div class="w3-container w3-black w3-cell" style="width:25%">
+	    <h4 class="w3-center">YT</h4>
+		<p>71414<br>71424<br>71418</p>
+	  </div>
+	  <div class="w3-container w3-light-grey w3-cell" style="width:25%"></div>
+
+	</div> 
+  </div>
+  
 </div>
 
 <!-- Footer -->
 
 <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
-  <h4>Footer</h4>
+  <h4></h4>
   <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
@@ -292,11 +331,6 @@ function openTeam(evt, teamName) {
   </div>
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
-
-<script>
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-</script>
 
 <script>
 // Slideshow
